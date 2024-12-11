@@ -6,5 +6,5 @@
   "use_damped_trend": null,
   "seasonal_periods": "freq",
   "use_arma_errors": true,
-  "history_forecast_ratio": 13
+  "history_forecast_ratio": 15
 }
