@@ -75,11 +75,20 @@ def run_training(
             )
             default_hyperparameters = map_hyperparameters(default_hyperparameters)
 
-            forecaster = train_predictor_model(
-                history=validated_data,
-                data_schema=data_schema,
-                hyperparameters=default_hyperparameters,
-            )
+            try:
+                forecaster = train_predictor_model(
+                    history=validated_data,
+                    data_schema=data_schema,
+                    hyperparameters=default_hyperparameters,
+                )
+            except Exception as exc:
+                print(f"Box cox exception happend and handled: {str(exc)}")
+                default_hyperparameters["use_box_cox"] = False
+                forecaster = train_predictor_model(
+                    history=validated_data,
+                    data_schema=data_schema,
+                    hyperparameters=default_hyperparameters,
+                )
 
         # save predictor model
         logger.info("Saving forecaster...")
